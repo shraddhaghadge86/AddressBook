@@ -1,6 +1,6 @@
 package com.bridgelabz.addressbook;
 
-public class PersonDetails {
+public class Contact {
     private String firstName;
     private String lastName;
     private String address;
@@ -10,11 +10,11 @@ public class PersonDetails {
     private String state;
     private String zip;
 
-    public PersonDetails(){
+    public Contact(){
 
     }
-    public PersonDetails(String firstName, String lastName, String address, long phoneNumber, String emailID, String city,
-                         String state, String zip){
+    public Contact(String firstName, String lastName, String address, long phoneNumber, String emailID, String city,
+                   String state, String zip){
         super();
         this.firstName = firstName;
         this.lastName = lastName;
