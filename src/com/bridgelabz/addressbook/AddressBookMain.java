@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class AddressBookMain {
     public static void main(String[] args) {
+
         int choice = 10, count = 0;
         System.out.println("Welcome in AddressBook");
         AddressBook add = new AddressBook();
@@ -15,7 +16,8 @@ public class AddressBookMain {
             System.out.println(" 0. Exit. ");
             System.out.println(" 1. Add contact. ");
             System.out.println(" 2. Edit contact. ");
-            System.out.println(" 3. Outprint all contacts. ");
+            System.out.println(" 3. Display contacts");
+            System.out.println(" 4. Delete contacts");
             choice = sc.nextInt();
             switch (choice) {
                 case 1:
@@ -58,9 +60,22 @@ public class AddressBookMain {
                         System.out.println(contact.get(i).getName() + " " + contact.get(i).getSurName() + " " + contact.get(i).getAddress()
                                 + " " + contact.get(i).getCity() + " " + contact.get(i).getState() + " " + contact.get(i).getContactNumber() +
                                 " " + contact.get(i).getZip() + " " + contact.get(i).getGmail());
-                        break;
+
                     }
+                    break;
+                case 4:
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("Enter name you wont to be delete");
+                    String number = scanner.nextLine();
+                    scanner.nextLine();
+                    for( int k = 0;k<contact.size();k++ ){
+                        if(contact.get(k).getName().equals(number)){
+                            contact.remove(contact.get(k));
+                        }
+                    }
+                    break;
             }
+
 
         }
     }

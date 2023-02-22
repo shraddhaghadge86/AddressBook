@@ -1,7 +1,7 @@
 package com.bridgelabz.addressbook;
 
 public class Data {
-    private String name;
+    private String name ;
     private String surName;
     private String address;
     private String  city ;
