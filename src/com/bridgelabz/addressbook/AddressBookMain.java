@@ -1,25 +1,29 @@
 package com.bridgelabz.addressbook;
 
+import java.util.Scanner;
+
 public class AddressBookMain {
     public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        AddressBook addBook = new AddressBook();
+        String start = "start";
+
         System.out.println("Welcome to Address Book Program");
-        AddressBook obj1 = new AddressBook();
-        obj1.setName("Shraddha");
-        obj1.setSurname("Ghadge");
-        obj1.setAddress("Kalambi, Satara");
-        obj1.setCity("Satara");
-        obj1.setState("Maharastra");
-        obj1.setContactNumber("8605512168");
-        obj1.setEmail("shraddhaghadge86@gmail.com");
+        while(start.equals("start")) {
+            System.out.println("if you want to add address press 1 if show address press 2");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    addBook.saveAddress();
+                    break;
+                case 2:
+                    addBook.showMyAddress();
+                    break;
+                default:
+                    System.out.println("Choose correct option ");
 
-        System.out.println("Name: " + obj1.getName());
-        System.out.println("Surname: " + obj1.getSurname());
-        System.out.println("Address: " + obj1.getAddress());
-        System.out.println("City: " + obj1.getCity());
-        System.out.println("State: " + obj1.getState());
-        System.out.println("ContactNumber: " + obj1.getContactNumber());
-        System.out.println("Email: " + obj1.getEmail());
-
-
+            }
+        }
     }
 }
