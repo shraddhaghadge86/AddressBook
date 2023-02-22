@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class AddressBook {
     PersonDetails obj = new PersonDetails();
-    int count = 0;
+    int count=0;
     String arr[] = new String[70];
     public void saveAddress() {
         Scanner sc = new Scanner(System.in);
@@ -37,8 +37,8 @@ public class AddressBook {
             }
         }
     }
+
     public void saveAddress1() {
-        // TODO Auto-generated method stub
 
     }
 }
