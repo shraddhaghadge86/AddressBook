@@ -1,5 +1,7 @@
 package com.bridgelabz.addressbook;
 
+import java.util.Objects;
+
 public class PersonDetails {
     private String name ;
     private String surName;
@@ -93,6 +95,26 @@ public class PersonDetails {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PersonDetails)) return false;
+        PersonDetails contact = (PersonDetails) o;
+        return Objects.equals(name, contact.name) &&
+                Objects.equals(surName, contact.surName) &&
+                Objects.equals(address, contact.address) &&
+                Objects.equals(city, contact.city) &&
+                Objects.equals(state, contact.state) &&
+                Objects.equals(contactNumber, contact.contactNumber) &&
+                Objects.equals(zip, contact.zip) &&
+                Objects.equals(gmail, contact.gmail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surName, address, city, state, contactNumber, zip, gmail);
+    }
+
+    @Override
     public String toString() {
         return "Contact{" +
                 "name='" + name + '\'' +
@@ -104,5 +126,9 @@ public class PersonDetails {
                 ", zip='" + zip + '\'' +
                 ", gmail='" + gmail + '\'' +
                 '}';
+    }
+
+    public static void remove(PersonDetails contactPerson) {
+
     }
 }
