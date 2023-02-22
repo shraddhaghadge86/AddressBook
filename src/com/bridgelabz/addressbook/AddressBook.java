@@ -3,295 +3,200 @@ package com.bridgelabz.addressbook;
 import java.util.*;
 
 public class AddressBook {
+    static ArrayList<Contact> contactList = new ArrayList();
+    static HashMap<String, AddressBook> addressBookMap = new HashMap();
+    Scanner sc;
 
-    Contact contact = new Contact();
-    // Creating array List
-    static ArrayList<Contact> contactDetails = new ArrayList();
-    // Taking Scanner Class Object
-    static Scanner sc = new Scanner(System.in);
-    static HashMap<String, ArrayList<Contact>> hashmap = new HashMap<>();
-
-    // method For Adding Multiple Address Book
-    public static void multipleAddressBook(AddressBook addressBook) {
-        System.out.println("Select the Choice:\n1. Add Address Book \n2. Search City or State.");
-        int ch = sc.nextInt();
-        switch (ch) {
-            case 1:
-                int selection;
-                do {
-                    System.out.println("Enter Name For Address Book");
-                    String AddressBookName = sc.next();
-//                contactsDetails.add(AddressBookName);
-                    if (hashmap.containsKey(AddressBookName)) {
-                        System.out.println("The AddressBook already contains");
-                        break;
-                    } else {
-                        ArrayList<Contact> contactDetails1 = new ArrayList<>();
-                        addressBook.menuChoose(addressBook, contactDetails1);
-                        hashmap.put(AddressBookName,contactDetails1);
-                    }
-                    System.out.println("AddressBook Added" + hashmap + " ");
-                    System.out.println("1. Add New Address Book \n2. Search Contact by City or State \n3. Exit");
-                    selection = sc.nextInt();
-                } while (selection == 1);
-            case 2:
-                System.out.println("Enter City or State name to search ");
-                String name = sc.next();
-                SearchInMultipleBook(name);
-                break;
-            case 3:
-                addressBook.searchByState();
-                break;
-            case 4:
-                addressBook.searchByCity();
-                break;
-            default:
-        }
-    }
-    //Search person in a Multiple Address book.
-    private static List<Contact> SearchInMultipleBook(String name) {
-        for (Map.Entry<String, ArrayList<Contact>> entry : hashmap.entrySet()) {
-            for (Contact contacts : entry.getValue()) {
-                if (contacts.getCity().equals(name) || contacts.getState().equals(name)) {
-                    System.out.println("\nAddress Book Name :" + entry.getKey());
-                    System.out.println("First Name :" + contacts.getFirstName());
-                    System.out.println("Last Name :" + contacts.getLastName());
-                    System.out.println("Email-ID :" + contacts.getEmailID());
-                    System.out.println("Address :" + contacts.getAddress());
-                    System.out.println("City Name :" + contacts.getCity());
-                    System.out.println("Contact Number :" + contacts.getPhoneNumber());
-                }
-            }
-        }
-
-        System.out.printf("No record found:");
-        return null;
+    public AddressBook() {
+        this.sc = new Scanner(System.in);
     }
 
-    public void SearchInSingleBook(ArrayList<Contact> contactdetails) {
-        System.out.println("Enter name of city or state to search");
+    public ArrayList addContact(ArrayList<Contact> contactList1) {
+        Contact contactPerson = new Contact();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the details of contact person");
+        System.out.print("Enter first name:");
         String name = sc.next();
-        ArrayList<Contact> contacts = new ArrayList<>();
-        for (Contact contact : contactdetails) {
-            if (contact.getCity().equals(name) || contact.getState().equals(name)) {
-                contacts.add(contact);
-            }
-            System.out.println(contact);
-        }
-    }
-
-    // Using Java Stream
-    public void searchByCity() {
-        System.out.println("Enter the city:");
-        String city = sc.next();
-        contactDetails.stream().filter(contacts -> contacts.getCity().equalsIgnoreCase(city))
-                .forEach(contacts -> System.out.println(contacts));
-    }
-
-    public void searchByState() {
-        System.out.println("Enter the State:");
-        String state = sc.next();
-        contactDetails.stream().filter(contacts -> contacts.getState().equalsIgnoreCase(state))
-                .forEach(contacts -> System.out.println(contacts));
-    }
-
-
-    public static ArrayList<Contact> addDetails(ArrayList<Contact> contactsDetails) {
-        Contact info = new Contact();
-        if (contactsDetails.size() == 0) {
-            System.out.println("Enter the First Name");
-            info.setFirstName(sc.next());
-            System.out.println("Enter the Last Name");
-            info.setLastName(sc.next());
-            System.out.println("Enter the Address");
-            info.setAddress(sc.next());
-            System.out.println("Enter the city");
-            info.setCity(sc.next());
-            System.out.println("Enter the State");
-            info.setState(sc.next());
-            System.out.println("Enter the your zip Code");
-            info.setZip(sc.next());
-            System.out.println("Enter the Contact Number");
-            info.setPhoneNumber(Long.parseLong(sc.next()));
-            System.out.println("Enter the Email Id");
-            info.setEmailID(sc.next());
-            contactsDetails.add(info);
-            System.out.println("Contact details added");
+        if (findDuplicates(name)) {
+            System.out.println("This Name is already present in your dictionary. please add Another name \n");
         } else {
-            System.out.println("Enter first name");
-            String firstName = sc.next();
-            /*
-             * For searching the duplicate names in arraylist
-             */
-            for (Contact contacts : contactsDetails) {
-                // checking the duplicate name.
-                if (contacts.getFirstName().equals(firstName)) {
-                    System.out.println("The Name is already present.");
-                    AddressBook.addDetails(contactsDetails);
-                }
-            }
-            System.out.println("Re-enter first name");
-            info.setFirstName(sc.next());
-            System.out.println("Enter Last Name");
-            info.setLastName(sc.next());
-            System.out.println("Enter contact Number:");
-            info.setPhoneNumber(Long.parseLong(sc.next()));
-            System.out.println("Enter Email: ");
-            info.setEmailID(sc.next());
-            System.out.println("Enter Address: ");
-            info.setAddress(sc.next());
-            System.out.println("Enter City Name: ");
-            info.setCity(sc.next());
-            System.out.println("Enter State: ");
-            info.setState(sc.next());
-            System.out.println("Enter Zip Code:");
-            info.setZip(sc.next());
-            contactsDetails.add(info);
+            contactPerson.setName(name);
+            System.out.print("Enter Last name:");
+            contactPerson.setSurName(sc.next());
+            System.out.print("Enter the Address : ");
+            contactPerson.setAddress(sc.next());
+            System.out.print("Enter the City : ");
+            contactPerson.setCity(sc.next());
+            System.out.print("Enter the State : ");
+            contactPerson.setState(sc.next());
+            System.out.print("Enter the ZipCode : ");
+            contactPerson.setZip(sc.next());
+            System.out.print("Enter the Mobile no : ");
+            contactPerson.setContactNumber(sc.next());
+            contactList.add(contactPerson);
+            contactList1.add(contactPerson);
         }
-        return contactsDetails;
+
+        return contactList1;
     }
 
-    public void displayContacts(ArrayList<Contact> contactDetails) {
-        for (Contact contactDetailsValue : contactDetails) {
-            System.out.println(contactDetailsValue);
-            System.out.println("---------------------------");
-        }
+    private static boolean findDuplicates(String name) {
+        return contactList.stream().anyMatch((contact) -> {
+            return contact.getName().equals(name);
+        });
     }
 
-    /*
-     * Another method is to create editDetails Edit details you want to editing in
-     * the respective information by using switch case
-     */
-    public void editDetails(ArrayList<Contact> contactDetails) {
-        System.out.println("Enter the first name you want to edit ");
-        String searchFirstName = sc.next();
-        // taking for each loop
-        for (Contact contact : AddressBook.contactDetails) {
-            // taking name variable and store the first name that you want to edit
-            String name = contact.getFirstName();
-            // checking if condition your input first name is equal to search first name or
-            // not by equals function
-            System.out.println(name);
-            if (name.equals(searchFirstName)) {
-                System.out.println("1. First Name \n2. Last Name \n3. Address \n4. City "
-                        + "\n5. State \n6. Zip Code \n7. Contact No \n8. Email");
-                System.out.println("Enter value to update: ");
-                int num = sc.nextInt();
-                switch (num) {
+    public String toString() {
+        return "AddressBook{contactList=" + contactList + '}';
+    }
+
+    public void editContact() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter first name:");
+        String name = sc.next();
+        Iterator var4 = contactList.iterator();
+
+        while (var4.hasNext()) {
+            Contact contactPerson = (Contact) var4.next();
+            if (name.equals(contactPerson.getName())) {
+                System.out.println("What you want to edit for the contact");
+                System.out.println("1.First Name\n2.Last Name\n3.Address\n4.City\n5.State\n6.Zip Code\n7.Mobile Number\n8.Email id");
+                int choice = sc.nextInt();
+                switch (choice) {
                     case 1:
-                        System.out.println("Enter the first name You want to update");
-                        String updatedFirstName = sc.next();
-                        contact.setFirstName(updatedFirstName);
-                        // displayContacts();
+                        System.out.println("Enter the First Name :");
+                        contactPerson.setName(sc.next());
                         break;
                     case 2:
-                        System.out.println("Enter the Last Name You want to update");
-                        String updatedLastName = sc.next();
-                        contact.setLastName(updatedLastName);
-                        // displayContacts();
+                        System.out.println("Enter the Last Name :");
+                        contactPerson.setSurName(sc.next());
                         break;
                     case 3:
-                        System.out.println("Enter the Address You want to update");
-                        String updatedAddress = sc.next();
-                        contact.setAddress(updatedAddress);
-                        // displayContacts();
+                        System.out.println("Enter the Address :");
+                        contactPerson.setAddress(sc.next());
                         break;
                     case 4:
-                        System.out.println("Enter the City You want to update");
-                        String updatedCity = sc.next();
-                        contact.setCity(updatedCity);
-                        // displayContacts();
+                        System.out.println("Enter the City :");
+                        contactPerson.setCity(sc.next());
                         break;
                     case 5:
-                        System.out.println("Enter the State You want to update");
-                        String updatedState = sc.next();
-                        contact.setState(updatedState);
-                        // displayContacts();
+                        System.out.println("Enter the State :");
+                        contactPerson.setState(sc.next());
                         break;
                     case 6:
-                        System.out.println("Enter the Zip code You want to update");
-                        String updatedZipCode = sc.next();
-                        contact.setZip(updatedZipCode);
-                        // displayContacts();
+                        System.out.println("Enter the Zip code :");
+                        contactPerson.setZip(sc.next());
                         break;
                     case 7:
-                        System.out.println("Enter the Contact numberYou want to update");
-                        String updatedContact = sc.next();
-                        contact.setPhoneNumber(Long.parseLong(updatedContact));
-                        // displayContacts();
-                        break;
-                    case 8:
-                        System.out.println("Enter the email You want to update");
-                        String updatedEmail = sc.next();
-                        contact.setEmailID(updatedEmail);
-                        // displayContacts();
-                        break;
-                    default:
-                        System.out.println("Invalid number!");
+                        System.out.println("Enter the Mobile Number :");
+                        contactPerson.setContactNumber(sc.next());
                 }
-                System.out.println("details updated");
-            } else
-                System.out.println("No record found!");
-        }
-    }
-
-    public void deleteContact(ArrayList<Contact> contactDetails) {
-        System.out.println("Enter First Name for which you want to delete contact: ");
-        String firstname = sc.next();
-        Iterator<Contact> removeContact = AddressBook.contactDetails.iterator();
-        /*
-         * Checking the next element where condition holds true till there is single
-         * element in the List using hasNext() method
-         */
-        while (removeContact.hasNext()) {
-            /* Move cursor to next element */
-            Contact nextElement = removeContact.next();
-            if (nextElement.getFirstName().equals(firstname)) {
-                removeContact.remove();
-                System.out.println("Contact is removed!");
-                break;
-            } else {
-                System.out.println("Contact not found.");
             }
         }
+
     }
 
-    public static void menuChoose(AddressBook addressBook, ArrayList<Contact> contactDetails) {
+    public void deleteContact() {
         Scanner sc = new Scanner(System.in);
-        int chooseNumber;
-        do {
-            System.out.println("Enter the number that you want to choose to perform the certain task");
-            System.out.println("1. Add Details \n2. Edit Details \n3. Delete Details \n4. Display Details \n5. exit ");
-            chooseNumber = sc.nextInt();
+        System.out.print("Enter first name:");
+        String name = sc.next();
+        Iterator var4 = contactList.iterator();
 
-            switch (chooseNumber) {
-                /* Add contact details in address book */
-                case 1:
-                    System.out.println("Add Details");
-                    addressBook.addDetails(contactDetails);
-                    break;
-                case 2:
-                    /* Edit contact details in address book */
-                    System.out.println("Edit details");
-                    addressBook.editDetails(contactDetails);
-                    break;
-                /* Delete contact details */
-                case 3:
-                    System.out.println("Delete Details");
-                    addressBook.deleteContact(contactDetails);
-                    break;
-                /* Display contact details */
-                case 4:
-                    System.out.println("Display details");
-                    addressBook.displayContacts(contactDetails);
-                    break;
-                case 5:
-                    System.out.println("Exit");
-                    break;
-                default:
-                    System.out.println("invalid Option choose");
-                    break;
+        while (var4.hasNext()) {
+            Contact contactPerson = (Contact) var4.next();
+            if (name.equals(contactPerson.getName())) {
+                contactList.remove(contactPerson);
+                break;
             }
-        } while (chooseNumber != 5);
+        }
+
+    }
+
+    public void addAddressBookMap(AddressBook ad) {
+        System.out.println("Enter your Addres Book name ");
+        String name = this.sc.nextLine();
+        addressBookMap.put(name, ad);
+    }
+
+    public void displayMyAddressBook(ArrayList<Contact> arrayList) {
+        System.out.println("My Address Books");
+        System.out.println(addressBookMap.keySet());
+        Iterator var3 = arrayList.iterator();
+
+        while (var3.hasNext()) {
+            Contact key = (Contact) var3.next();
+            System.out.println(key);
+        }
+
+    }
+
+    public ArrayList crateNewAddressBook() {
+        ArrayList addressBookName = new ArrayList();
+        return addressBookName;
+    }
+
+    public void searchPerson(HashMap<String, ArrayList<Contact>> addressBookNames) {
+        int operation;
+        label32:
+        do {
+            System.out.println("1.Search in city");
+            System.out.println("2.Search in state");
+            System.out.println("3.Exit");
+            System.out.println();
+            System.out.print("Enter option : ");
+            Scanner input = new Scanner(System.in);
+            operation = input.nextInt();
+            switch (operation) {
+                case 1:
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("Enter City ! ");
+                    String cityName = scanner.nextLine();
+                    System.out.println("using this city and  below records are found ");
+                    Iterator var12 = addressBookNames.keySet().iterator();
+
+                    while (true) {
+                        if (!var12.hasNext()) {
+                            continue label32;
+                        }
+
+                        String addressBookName = (String) var12.next();
+                        System.out.println(addressBookName);
+                        ArrayList<Contact> con = (ArrayList) addressBookNames.get(addressBookName);
+                        con.stream().filter((city) -> {
+                            return city.getCity().equalsIgnoreCase(cityName);
+                        }).forEach((x) -> {
+                            System.out.println(x);
+                        });
+                    }
+                case 2:
+                    Scanner scanner1 = new Scanner(System.in);
+                    System.out.println("Enter State ! ");
+                    String stateName = scanner1.nextLine();
+                    System.out.println("using this state and  below records are found ");
+                    Iterator var9 = addressBookNames.keySet().iterator();
+
+                    while (true) {
+                        if (!var9.hasNext()) {
+                            continue label32;
+                        }
+
+                        String addressBookName = (String) var9.next();
+                        System.out.println(addressBookName);
+                        ArrayList<Contact> contact1 = (ArrayList) addressBookNames.get(addressBookName);
+                        contact1.stream().filter((state) -> {
+                            return state.getState().equalsIgnoreCase(stateName);
+                        }).forEach((x) -> {
+                            System.out.println(x);
+                        });
+                    }
+                case 3:
+                    System.out.println("Exist");
+            }
+
+        } while (operation != 3);
     }
 }
+
+
+
+
