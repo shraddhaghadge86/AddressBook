@@ -1,134 +1,82 @@
 package com.bridgelabz.addressbook;
 
-import java.util.Objects;
-
 public class PersonDetails {
-    private String name ;
-    private String surName;
+    private String firstName;
+    private String lastName;
     private String address;
-    private String  city ;
+    private long  phoneNumber;
+    private String emailID;
+    private String city;
     private String state;
-    private String contactNumber;
     private String zip;
-    private String gmail ;
-    public PersonDetails(String name, String surName, String Address, String  city, String state, String contactNumber,
-                         String zip, String gmail){
-        this.name = name;
-        this.surName = surName;
-        this.address = Address;
-        this.city=city;
+
+    public PersonDetails(){
+
+    }
+    public PersonDetails(String firstName, String lastName, String address, long phoneNumber, String emailID, String city,
+                         String state, String zip){
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.emailID = emailID;
+        this.city = city;
         this.state = state;
-        this.contactNumber = contactNumber;
         this.zip = zip;
-        this.gmail = gmail;
     }
 
-    public PersonDetails() {
+    public String getFirstName() {
+        return firstName;
     }
-
-    public String getName() {
-        return name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public String getLastName() {
+        return lastName;
     }
-
-    public String getSurName() {
-        return surName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
-
-    public void setSurName(String surName) {
-        this.surName = surName;
-    }
-
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
-
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public String getEmailID() {
+        return emailID;
+    }
+    public void setEmailID(String emailID) {
+        this.emailID = emailID;
+    }
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
-
     public String getState() {
         return state;
     }
-
     public void setState(String state) {
         this.state = state;
     }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
     public String getZip() {
         return zip;
     }
-
     public void setZip(String zip) {
         this.zip = zip;
     }
-
-    public String getGmail() {
-        return gmail;
-    }
-
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
-    }
-    public String toStore(){
-        return String.format(name+" "+ surName+ " "+ address+" "  +city+" " + state+" "+ contactNumber+
-                " "+ zip+" "+ gmail);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PersonDetails)) return false;
-        PersonDetails contact = (PersonDetails) o;
-        return Objects.equals(name, contact.name) &&
-                Objects.equals(surName, contact.surName) &&
-                Objects.equals(address, contact.address) &&
-                Objects.equals(city, contact.city) &&
-                Objects.equals(state, contact.state) &&
-                Objects.equals(contactNumber, contact.contactNumber) &&
-                Objects.equals(zip, contact.zip) &&
-                Objects.equals(gmail, contact.gmail);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, surName, address, city, state, contactNumber, zip, gmail);
-    }
-
     @Override
     public String toString() {
-        return "Contact{" +
-                "name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", contactNumber='" + contactNumber + '\'' +
-                ", zip='" + zip + '\'' +
-                ", gmail='" + gmail + '\'' +
-                '}';
-    }
-
-    public static void remove(PersonDetails contactPerson) {
-
+        return "Contact [\n firstName=" + firstName + ",\n lastName=" + lastName + ",\n address=" + address + ",\n phoneNumber="
+                + phoneNumber + ",\n emailID=" + emailID + ",\n city=" + city + ",\n state=" + state + ",\n zip=" + zip + "]";
     }
 }
