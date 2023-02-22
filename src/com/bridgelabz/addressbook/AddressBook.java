@@ -1,68 +1,44 @@
 package com.bridgelabz.addressbook;
 
+import java.util.Scanner;
+
 public class AddressBook {
-    private String name ;
-    private String surname ;
-    private String address;
-    private String city;
-    private String state;
-    private String contactNumber;
-    private String email;
-
-
-    public String getName() {
-        return name;
+    PersonDetails obj = new PersonDetails();
+    int count = 0;
+    String arr[] = new String[70];
+    public void saveAddress() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your contacts ");
+        System.out.print("Name: ");
+        arr[count++]=sc.nextLine();
+        System.out.print("Surname: ");
+        arr[count++]=sc.nextLine();
+        System.out.print("Address: ");
+        arr[count++]=sc.nextLine();
+        System.out.print("City: ");
+        arr[count++]=sc.nextLine();
+        System.out.print("State: ");
+        arr[count++]=sc.nextLine();
+        System.out.print("ContactNumber: ");
+        arr[count++]=sc.nextLine();
+        System.out.print("Email: ");
+        arr[count++]=sc.nextLine();
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public void showMyAddress(){
+        int count =1;
+        for(String add : arr){
+            if (add!=null && !add.isEmpty()){
+                System.out.print(add+", ");
+                count++;
+            }
+            if(count==8){
+                System.out.println();
+                count=1;
+            }
+        }
     }
+    public void saveAddress1() {
+        // TODO Auto-generated method stub
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
