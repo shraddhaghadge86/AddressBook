@@ -39,6 +39,12 @@ public class AddressBook {
                 String name = sc.next();
                 SearchInMultipleBook(name);
                 break;
+            case 3:
+                addressBook.searchByState();
+                break;
+            case 4:
+                addressBook.searchByCity();
+                break;
             default:
         }
     }
@@ -61,6 +67,34 @@ public class AddressBook {
         System.out.printf("No record found:");
         return null;
     }
+
+    public void SearchInSingleBook(ArrayList<Contact> contactdetails) {
+        System.out.println("Enter name of city or state to search");
+        String name = sc.next();
+        ArrayList<Contact> contacts = new ArrayList<>();
+        for (Contact contact : contactdetails) {
+            if (contact.getCity().equals(name) || contact.getState().equals(name)) {
+                contacts.add(contact);
+            }
+            System.out.println(contact);
+        }
+    }
+
+    // Using Java Stream
+    public void searchByCity() {
+        System.out.println("Enter the city:");
+        String city = sc.next();
+        contactDetails.stream().filter(contacts -> contacts.getCity().equalsIgnoreCase(city))
+                .forEach(contacts -> System.out.println(contacts));
+    }
+
+    public void searchByState() {
+        System.out.println("Enter the State:");
+        String state = sc.next();
+        contactDetails.stream().filter(contacts -> contacts.getState().equalsIgnoreCase(state))
+                .forEach(contacts -> System.out.println(contacts));
+    }
+
 
     public static ArrayList<Contact> addDetails(ArrayList<Contact> contactsDetails) {
         Contact info = new Contact();
